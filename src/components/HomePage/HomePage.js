@@ -6,7 +6,6 @@ const HomePage = (props) => {
   return (
     <div className="home-container">
       {props.state.isLoggedIn ? <h1>Your Entries</h1> : undefined}
-      {/* <h1>Your Entries</h1> */}
       {props.state.isLoggedIn ? (
         <div className="entry-container">
           {items.length > 0 ? (
