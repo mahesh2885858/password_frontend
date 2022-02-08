@@ -7,7 +7,7 @@ const Header = (props) => {
     <nav>
       <h1>
         <Link to="/">
-          {props.state.name ? props.state.name.to + "'s " : ""}Vault
+          {props.state.name ? props.state.name + "'s " : ""}Vault
         </Link>
       </h1>
       <div>

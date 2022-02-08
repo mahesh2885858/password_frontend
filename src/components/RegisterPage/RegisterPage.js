@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useReducer } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import "./RegisterPage.scss";
 import reducer from "./Reducer";
 
 const RegisterPage = () => {
@@ -36,8 +37,13 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <form action="#" onSubmit={register}>
+    <div className="registration-container">
+      <h1>Register</h1>
+      <form
+        className="registration-form-container"
+        action="#"
+        onSubmit={register}
+      >
         <label htmlFor="name">
           Name:
           <input
@@ -80,9 +86,9 @@ const RegisterPage = () => {
       <p>
         Already have an account Login<Link to="/login"> Here</Link>
       </p>
-      <p>{state.error ? state.error : undefined}</p>
+      {state.error ? <p className="status">{state.error}</p> : undefined}
       {!state.error && state.isInProgress ? (
-        <p>creating user please wait...</p>
+        <p className="status">creating user please wait...</p>
       ) : undefined}
     </div>
   );

@@ -6,17 +6,20 @@ const HomePage = (props) => {
   return (
     <div className="home-container">
       {props.state.isLoggedIn ? (
-        items.length > 0 ? (
-          items.map((item) => {
-            return (
-              <li onClick={() => props.itemDetails(item._id)} key={item._id}>
-                {item.websitename}
-              </li>
-            );
-          })
-        ) : (
-          <div>There are no entries </div>
-        )
+        <div className="entry-container">
+          <p>Your Entries</p>
+          {items.length > 0 ? (
+            items.map((item) => {
+              return (
+                <li onClick={() => props.itemDetails(item._id)} key={item._id}>
+                  {item.websitename}
+                </li>
+              );
+            })
+          ) : (
+            <div>There are no entries </div>
+          )}
+        </div>
       ) : (
         <div>
           <p>This is Vault</p>

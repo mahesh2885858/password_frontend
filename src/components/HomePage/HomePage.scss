@@ -1,12 +1,11 @@
 @use "../../variable";
 .home-container {
   width: 100vw;
-  height: calc(100vh - 64px);
+  height: 100%;
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
-  font-size: 2.5rem;
   div {
     display: flex;
     flex-direction: column;
@@ -14,8 +13,41 @@
     justify-content: center;
     font-weight: 700;
     color: variable.$whiteish;
+    font-size: 2.5rem;
+
     p {
       margin-bottom: 0.5em;
+      font-size: 2.5rem;
     }
+  }
+}
+.home-container > .entry-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 2.5rem;
+  padding: 0.5em;
+  width: 80%;
+  flex-wrap: wrap;
+  height: 100%;
+
+  li {
+    list-style: none;
+    background: #eee;
+    color: variable.$blue;
+    margin-bottom: 0.5em;
+    width: 30%;
+    font-size: 1.2rem;
+    padding: 0.5em;
+    border-radius: 5px;
+    transition: 0.5s;
+  }
+  :hover {
+    cursor: pointer;
+    background: #cfcecb;
+    background: linear-gradient(to top, #cfcecb, #c1daee);
+    transform: scale(1.05);
+    transition: 0.5s;
   }
 }

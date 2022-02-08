@@ -8,7 +8,13 @@
 body {
   width: 100vw;
   background: variable.$blue;
+  overflow: hidden;
 }
 #root {
   width: 100vw;
 }
+.app-container{
+
+  height: calc(100vh - 64px);
+}
+

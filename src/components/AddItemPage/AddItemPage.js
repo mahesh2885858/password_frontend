@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import Reducer from "./reducer";
 import axios from "axios";
+import "./AddItemPage.scss";
 import { useNavigate, useParams } from "react-router";
 
 const AddItemPage = (props) => {
@@ -58,8 +59,9 @@ const AddItemPage = (props) => {
     }
   };
   return (
-    <div>
-      <form onSubmit={submit}>
+    <div className="additem-container">
+      <h1>Add Entry</h1>
+      <form className="additem-form-container" onSubmit={submit}>
         <label htmlFor="websitename">
           Website Name:
           <input
@@ -69,7 +71,7 @@ const AddItemPage = (props) => {
             onChange={(e) => {
               onchange(e, "websitename");
             }}
-            placeholder="In which website you are going to use these credentials"
+            placeholder="website "
           />
         </label>
         <label htmlFor="username">
@@ -85,7 +87,7 @@ const AddItemPage = (props) => {
           />
         </label>
         <label htmlFor="email">
-          email
+          Email:
           <input
             value={state.email}
             type="email"
@@ -93,7 +95,7 @@ const AddItemPage = (props) => {
             onChange={(e) => {
               onchange(e, "email");
             }}
-            placeholder="Email user on that website"
+            placeholder="Email "
           />
         </label>
         <label htmlFor="password">
@@ -105,7 +107,7 @@ const AddItemPage = (props) => {
             onChange={(e) => {
               onchange(e, "password");
             }}
-            placeholder="Password for the username"
+            placeholder="Password "
           />
         </label>
         <button>Add</button>

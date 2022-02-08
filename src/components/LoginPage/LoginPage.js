@@ -38,8 +38,12 @@ const LoginPage = (props) => {
       <p>
         Don't have an account Create One <Link to="/register"> Here</Link>
       </p>
-      {props.state.error ? <p>{props.state.error}</p> : undefined}
-      {props.state.IsLoading ? <p> "Logging In...." </p> : undefined}
+      {props.state.error ? (
+        <p className="error">{props.state.error}</p>
+      ) : undefined}
+      {props.state.IsLoading ? (
+        <p className="error"> "Logging In...." </p>
+      ) : undefined}
     </div>
   );
 };

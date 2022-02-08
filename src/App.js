@@ -95,6 +95,7 @@ function App() {
   return (
     <>
       <Header logout={logout} state={state} />
+      <div className='app-container'>
       <Routes>
         <Route
           path="/"
@@ -148,6 +149,7 @@ function App() {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </div>
     </>
   );
 }
