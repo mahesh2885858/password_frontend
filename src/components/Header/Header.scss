@@ -1,0 +1,27 @@
+@use "../../variable";
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: lighten($color: variable.$blue, $amount: 10);
+  padding: 1em;
+
+  h1 {
+    margin-left: 1em;
+    a {
+      font-size: 1.7rem;
+      text-decoration: none;
+      color: variable.$whiteish;
+    }
+  }
+  div {
+    margin-right: 1em;
+    a {
+      margin: 1em;
+      text-decoration: none;
+      font-size: 1.4rem;
+      color: variable.$whiteish;
+    }
+  }
+}

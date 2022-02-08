@@ -1,0 +1,21 @@
+@use "../../variable";
+.home-container {
+  width: 100vw;
+  height: calc(100vh - 64px);
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: variable.$whiteish;
+    p {
+      margin-bottom: 0.5em;
+    }
+  }
+}

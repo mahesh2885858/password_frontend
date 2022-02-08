@@ -1,24 +1,154 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes, useNavigate } from "react-router";
+import { useReducer, useEffect } from "react";
+import HomePage from "./components/HomePage/HomePage";
+import Header from "./components/Header/Header";
+import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
+import AddItemPage from "./components/AddItemPage/AddItemPage";
+import ItemDetails from "./components/ItemDetails/ItemDetails";
+import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
+import reducer from "./Reducer";
+import "./App.scss";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 function App() {
+  const initialState = {
+    email: "",
+    password: "",
+    isLoggedIn: false,
+    name: "",
+    error: "",
+    IsLoading: false,
+    items: [],
+    added: false,
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
+  const loginInput = (e, field) => {
+    dispatch({ type: "FIELD", field, data: e.target.value });
+  };
+  // Logging in a User
+  const loginUser = async (e) => {
+    e.preventDefault();
+    dispatch({ type: "LOADING" });
+    try {
+      const result = await axios.post("http://localhost:4000/login", {
+        email: state.email,
+        password: state.password,
+      });
+      if (result) {
+        dispatch({ type: "LOGIN_SUCCESS", data: result.data });
+        dispatch({ type: "LOADING_FINISH" });
+        dispatch({ type: "CLEAR" });
+        navigate("/");
+      }
+    } catch (err) {
+      dispatch({ type: "LOADING_FINISH" });
+      dispatch({ type: "ERROR", data: err.response.data });
+    }
+  };
+  // Logging out a User
+  const logout = async () => {
+    const result = await axios.get("http://localhost:4000/logout");
+    if (result) {
+      console.log(result);
+      dispatch({ type: "LOGOUT" });
+      getLogin();
+      navigate("/");
+    }
+  };
+  // When user click on an item on home page it navigates user to details page of that item
+  const itemDetails = (id) => {
+    navigate(`/itemdetails/${id}`);
+  };
+  // When user click on edit button it's redirect user to edit page. we are reusing the additem component to edit the item also.
+  const editItem = (id) => {
+    navigate(`/edit/${id}`);
+  };
+  // To maintain user's Login state used with useEffect hook below
+  const getLogin = async () => {
+    try {
+      const user = await axios.get("http://localhost:4000");
+      if (user) {
+        dispatch({ type: "LOGIN_SUCCESS", data: user.data });
+      }
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+  // To Delete an item
+  const deleteItem = async (id) => {
+    const result = await axios.put("http://localhost:4000/user/deleteitem", {
+      id,
+    });
+    if (result) {
+      getLogin();
+      navigate("/");
+    }
+  };
+  // calling getLogin function inside useEffect hook to maintain login state of user
+  useEffect(() => {
+    getLogin();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header logout={logout} state={state} />
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage itemDetails={itemDetails} state={state} />}
+        />
+        <Route
+          path="/login"
+          element={
+            !state.isLoggedIn ? (
+              <LoginPage
+                loginUser={loginUser}
+                loginInput={loginInput}
+                state={state}
+              />
+            ) : (
+              <NotFoundPage />
+            )
+          }
+        />
+        <Route
+          path="/register"
+          element={!state.isLoggedIn ? <RegisterPage /> : <NotFoundPage />}
+        />
+        <Route
+          path="/edit/:id"
+          element={<AddItemPage getLogin={getLogin} state={state} />}
+        />
+        <Route
+          path="/additem"
+          element={
+            state.isLoggedIn ? (
+              <AddItemPage getLogin={getLogin} state={state} />
+            ) : (
+              <NotFoundPage />
+            )
+          }
+        />
+        <Route
+          path="/itemdetails/:id"
+          element={
+            state.isLoggedIn && state.items.length > 0 ? (
+              <ItemDetails
+                editItem={editItem}
+                deleteItem={deleteItem}
+                state={state}
+              />
+            ) : (
+              <NotFoundPage />
+            )
+          }
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
 }
 
