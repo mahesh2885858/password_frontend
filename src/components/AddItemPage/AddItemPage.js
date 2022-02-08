@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import Reducer from "./reducer";
 import axios from "axios";
 import "./AddItemPage.scss";
@@ -10,7 +10,9 @@ const AddItemPage = (props) => {
   const item = params.id
     ? props.state.items.filter((item) => item._id === params.id)
     : [];
+
   const initialState = {
+    item: null,
     websitename: item.length > 0 ? item[0].websitename : "",
     username: item.length > 0 ? item[0].username : "",
     email: item.length > 0 ? item[0].email : "",
@@ -58,9 +60,12 @@ const AddItemPage = (props) => {
       console.log(err.err);
     }
   };
+  useEffect(() => {
+    console.log("rendered");
+  }, []);
   return (
     <div className="additem-container">
-      <h1>Add Entry</h1>
+      {params.id ? <h1>Edit Entry</h1> : <h1>Add Entry</h1>}
       <form className="additem-form-container" onSubmit={submit}>
         <label htmlFor="websitename">
           Website Name:
@@ -110,7 +115,7 @@ const AddItemPage = (props) => {
             placeholder="Password "
           />
         </label>
-        <button>Add</button>
+        <button>{params.id ? "Edit" : "Add"}</button>
       </form>
       <p>{state.isAdding ? "Adding Entry..." : undefined}</p>
     </div>

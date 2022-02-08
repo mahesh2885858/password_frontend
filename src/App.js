@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router";
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useLayoutEffect } from "react";
 import HomePage from "./components/HomePage/HomePage";
 import Header from "./components/Header/Header";
 import LoginPage from "./components/LoginPage/LoginPage";
@@ -87,6 +87,7 @@ function App() {
       navigate("/");
     }
   };
+
   // calling getLogin function inside useEffect hook to maintain login state of user
   useEffect(() => {
     getLogin();
@@ -95,60 +96,64 @@ function App() {
   return (
     <>
       <Header logout={logout} state={state} />
-      <div className='app-container'>
-      <Routes>
-        <Route
-          path="/"
-          element={<HomePage itemDetails={itemDetails} state={state} />}
-        />
-        <Route
-          path="/login"
-          element={
-            !state.isLoggedIn ? (
-              <LoginPage
-                loginUser={loginUser}
-                loginInput={loginInput}
-                state={state}
-              />
-            ) : (
-              <NotFoundPage />
-            )
-          }
-        />
-        <Route
-          path="/register"
-          element={!state.isLoggedIn ? <RegisterPage /> : <NotFoundPage />}
-        />
-        <Route
-          path="/edit/:id"
-          element={<AddItemPage getLogin={getLogin} state={state} />}
-        />
-        <Route
-          path="/additem"
-          element={
-            state.isLoggedIn ? (
-              <AddItemPage getLogin={getLogin} state={state} />
-            ) : (
-              <NotFoundPage />
-            )
-          }
-        />
-        <Route
-          path="/itemdetails/:id"
-          element={
-            state.isLoggedIn && state.items.length > 0 ? (
-              <ItemDetails
-                editItem={editItem}
-                deleteItem={deleteItem}
-                state={state}
-              />
-            ) : (
-              <NotFoundPage />
-            )
-          }
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <div className="app-container">
+        <Routes>
+          <Route
+            path="/"
+            element={<HomePage itemDetails={itemDetails} state={state} />}
+          />
+          <Route
+            path="/login"
+            element={
+              !state.isLoggedIn ? (
+                <LoginPage
+                  loginUser={loginUser}
+                  loginInput={loginInput}
+                  state={state}
+                />
+              ) : (
+                <NotFoundPage />
+              )
+            }
+          />
+          <Route
+            path="/register"
+            element={!state.isLoggedIn ? <RegisterPage /> : <NotFoundPage />}
+          />
+          <Route
+            path="/edit/:id"
+            element={
+              state.items.length > 0 ? (
+                <AddItemPage getLogin={getLogin} state={state} />
+              ) : null
+            }
+          />
+          <Route
+            path="/additem"
+            element={
+              state.isLoggedIn ? (
+                <AddItemPage getLogin={getLogin} state={state} />
+              ) : (
+                <NotFoundPage />
+              )
+            }
+          />
+          <Route
+            path="/itemdetails/:id"
+            element={
+              state.isLoggedIn && state.items.length > 0 ? (
+                <ItemDetails
+                  editItem={editItem}
+                  deleteItem={deleteItem}
+                  state={state}
+                />
+              ) : (
+                <NotFoundPage />
+              )
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </div>
     </>
   );
