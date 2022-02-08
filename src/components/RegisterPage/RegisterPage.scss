@@ -1,4 +1,4 @@
-@use "../../variable";
+@use "../variable";
 .registration-container {
   display: flex;
   flex-direction: column;
@@ -30,11 +30,10 @@
   }
   button {
     align-self: center;
-    font-size: 1.5vw;
+    font-size: 1.25rem;
     padding: 0.5em;
     border-radius: 10px;
     border: none;
-    // outline:none;
   }
 }
 .registration-form-container {

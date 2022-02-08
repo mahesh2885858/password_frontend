@@ -5,9 +5,10 @@ const HomePage = (props) => {
   const items = props.state.items;
   return (
     <div className="home-container">
+      {props.state.isLoggedIn ? <h1>Your Entries</h1> : undefined}
+      {/* <h1>Your Entries</h1> */}
       {props.state.isLoggedIn ? (
         <div className="entry-container">
-          <p>Your Entries</p>
           {items.length > 0 ? (
             items.map((item) => {
               return (

@@ -42,7 +42,7 @@ const LoginPage = (props) => {
         <p className="error">{props.state.error}</p>
       ) : undefined}
       {props.state.IsLoading ? (
-        <p className="error"> "Logging In...." </p>
+        <p className="error"> Logging In..... </p>
       ) : undefined}
     </div>
   );
