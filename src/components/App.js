@@ -122,6 +122,9 @@ function App() {
           />
           <Route
             path="/edit/:id"
+            //when user visit the edit page the input fields get populated with the item details he/she wants to edit
+            // this below "null" condition is to ensure that when user refreshes edit page the fields would not become empty and maintain the details that user wants to edit
+
             element={
               state.items.length > 0 ? (
                 <AddItemPage getLogin={getLogin} state={state} />
