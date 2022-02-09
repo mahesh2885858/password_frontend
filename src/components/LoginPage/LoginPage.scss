@@ -69,3 +69,31 @@
     }
   }
 }
+@media (max-width: 420px) {
+  .login-container {
+    margin-top: 2em;
+    justify-content: flex-start;
+    align-items: center;
+    p {
+      font-size: 1rem;
+    }
+  }
+  .login-form-container {
+    form {
+      width: 90%;
+      label {
+        margin: 0.5em;
+        font-size: 1rem;
+        input {
+          margin-left: 0.2em;
+          width: 90%;
+          font-size: 1rem;
+        }
+      }
+      button {
+        width: 30%;
+        font-size: 1rem;
+      }
+    }
+  }
+}

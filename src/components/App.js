@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router";
-import { useReducer, useEffect, useLayoutEffect } from "react";
+import { useReducer, useEffect } from "react";
 import HomePage from "./HomePage/HomePage";
 import Header from "./Header/Header";
 import LoginPage from "./LoginPage/LoginPage";
@@ -72,6 +72,7 @@ function App() {
       const user = await axios.get("http://localhost:4000");
       if (user) {
         dispatch({ type: "LOGIN_SUCCESS", data: user.data });
+        console.log(user);
       }
     } catch (err) {
       console.log(err.response);

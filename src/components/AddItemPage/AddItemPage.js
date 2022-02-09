@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import Reducer from "./reducer";
 import axios from "axios";
 import "./AddItemPage.scss";
@@ -57,12 +57,10 @@ const AddItemPage = (props) => {
         }
       }
     } catch (err) {
-      console.log(err.err);
+      return;
     }
   };
-  useEffect(() => {
-    console.log("rendered");
-  }, []);
+
   return (
     <div className="additem-container">
       {params.id ? <h1>Edit Entry</h1> : <h1>Add Entry</h1>}

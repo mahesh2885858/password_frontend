@@ -54,9 +54,30 @@
 }
 .home-container > .entry-container li:hover {
   cursor: pointer;
-  // background: #cfcecb;
   background: linear-gradient(to top, #87f1da, #c1daee);
   transform: scale(1.05);
   transition: 0.5s;
   color: black;
+}
+
+@media (max-width: 420px) {
+  .home-container {
+    margin-top: 0;
+    justify-content: flex-start;
+    h1 {
+      margin-left: 0.2em;
+    }
+    div {
+      margin-top: 4em;
+      p {
+        text-align: center;
+      }
+    }
+    .entry-container {
+      margin-top: 1em;
+      div {
+        text-align: center;
+      }
+    }
+  }
 }
